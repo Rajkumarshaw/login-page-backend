@@ -33,11 +33,11 @@ export const login = async (req, res, next) => {
 
     // Set JWT as HTTP-only cookie
     res.cookie('token', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 24 * 60 * 60 * 1000, // 1 day
-    });
+    httpOnly: true,
+    secure: true,
+    sameSite: 'none',
+    maxAge: 24 * 60 * 60 * 1000,
+});
 
     res.json({
       message: 'Login successful.',
@@ -54,11 +54,11 @@ export const login = async (req, res, next) => {
 export const logout = async (req, res, next) => {
   try {
     res.cookie('token', '', {
-      httpOnly: true,
-      expires: new Date(0),
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-    });
+  httpOnly: true,
+  expires: new Date(0),
+  secure: true,
+  sameSite: 'none',
+});
 
     res.json({ message: 'Logged out successfully.' });
   } catch (error) {
